@@ -41,12 +41,16 @@ class App(customtkinter.CTk):
         self.btn_mostrar.grid(row=2, pady=20, columnspan=2, sticky="nsew")
 
     def btn_mostrar_on_click(self):
-        importe = int(self.txt_importe.get())
-        porcentaje_descuento = int(self.txt_descuento.get())
-        importe_porcentaje = int(porcentaje_descuento * importe / 100)
+        importe = self.txt_importe.get()
+        importe = int(importe)
+        porcentaje_descuento = self.txt_descuento.get()
+        porcentaje_descuento = int(porcentaje_descuento)
+        importe_porcentaje = porcentaje_descuento * importe / 100
+        importe_porcentaje = int(importe_porcentaje)
         sueldo_actualizado = importe - importe_porcentaje
-        alert(title="Sueldo actualizado", message=sueldo_actualizado)
-
+        sueldo_actualizado = int(sueldo_actualizado)
+        alert(title="Sueldo actualizado", message=f"Siendo el importe inicial {importe}, el decremento del {porcentaje_descuento}% es {importe_porcentaje}, su importe actualizado sera de {sueldo_actualizado}")
+    
 
 if __name__ == "__main__":
     app = App()

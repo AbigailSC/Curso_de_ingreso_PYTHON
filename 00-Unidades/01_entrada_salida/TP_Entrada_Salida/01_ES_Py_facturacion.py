@@ -5,8 +5,8 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
-nombre:
-apellido:
+nombre: Abigail
+apellido: Sarzuri
 ---
 TP: ES_Facturaciones
 ---
@@ -41,7 +41,7 @@ class App(customtkinter.CTk):
         
         self.txt_importe_3 = customtkinter.CTkEntry(master=self)
         self.txt_importe_3.grid(row=2, column=1)
-       
+        
         self.btn_total = customtkinter.CTkButton(master=self, text="TOTAL", command=self.btn_total_on_click)
         self.btn_total.grid(row=3, pady=10, columnspan=2, sticky="nsew")
         
@@ -52,13 +52,34 @@ class App(customtkinter.CTk):
         self.btn_total_iva.grid(row=5, pady=10, columnspan=2, sticky="nsew")
 
     def btn_total_on_click(self):
-        pass
+        primer_precio = self.txt_importe_1.get()
+        primer_precio = float(primer_precio)
+        segundo_precio = self.txt_importe_2.get()
+        segundo_precio = float(segundo_precio)
+        tercero_precio = self.txt_importe_3.get()
+        tercero_precio = float(tercero_precio)
+        total = primer_precio + segundo_precio + tercero_precio
+        alert(title="Total de la suma", message=f"El total de la suma de {primer_precio} + {segundo_precio} + {tercero_precio} es {total}")
 
     def btn_promedio_on_click(self):
-        pass
+        primer_precio = float(self.txt_importe_1.get())
+        segundo_precio = float(self.txt_importe_2.get())
+        tercero_precio = float(self.txt_importe_3.get())
+        total = (primer_precio + segundo_precio + tercero_precio)
+        total_promediado = total / 3
+        alert(title="Total del promedio", message=f"El promedio del total de {total} es {total_promediado}")
 
     def btn_total_iva_on_click(self):
-        pass      
+        primer_precio = self.txt_importe_1.get()
+        primer_precio = float(primer_precio)
+        segundo_precio = self.txt_importe_2.get()
+        segundo_precio = float(segundo_precio)
+        tercero_precio = self.txt_importe_3.get()
+        tercero_precio = float(tercero_precio)
+        total = primer_precio + segundo_precio + tercero_precio
+        total_iva = total * 21 / 100
+        resultado_iva = total + total_iva
+        alert(title="Total con Iva agregado", message=f"El total de la suma de los productos es {total}, y el total con el Iva agregado es {resultado_iva}")
     
 if __name__ == "__main__":
     app = App()

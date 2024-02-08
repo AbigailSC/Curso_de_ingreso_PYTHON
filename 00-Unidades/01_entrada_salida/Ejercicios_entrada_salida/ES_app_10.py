@@ -34,11 +34,14 @@ class App(customtkinter.CTk):
         self.btn_mostrar.grid(row=2, pady=20, padx=30, columnspan=2, sticky="nsew")
 
     def btn_mostrar_on_click(self):
-        importe = int(self.txt_importe.get())
+        importe = self.txt_importe.get()
+        importe = int(importe)
         importe_porcentaje = 20 * importe / 100
-        importe_actualizado = int(importe - importe_porcentaje)
-        alert(title="Importe actualizado", message=importe_actualizado)
-
+        importe_porcentaje = int(importe_porcentaje)
+        importe_actualizado = importe - importe_porcentaje
+        importe_actualizado = int(importe_actualizado)
+        alert(title="Importe actualizado", message=f"Siendo el importe inicial {importe}, el decremento del 20% es {importe_porcentaje}, su importe actualizado sera de {importe_actualizado}")
+    
 
 if __name__ == "__main__":
     app = App()
