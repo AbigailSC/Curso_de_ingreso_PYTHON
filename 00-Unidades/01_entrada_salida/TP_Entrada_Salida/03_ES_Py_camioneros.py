@@ -52,9 +52,9 @@ class App(customtkinter.CTk):
     def btn_cantidad_camiones_on_click(self):
         toneladas = self.txt_toneladas.get()
         toneladas = int(toneladas)
-        peso_maximo_camion = 3500
+        peso_maximo_camion = 3.5
         cantidad_camiones = toneladas / peso_maximo_camion
-        cantidad_camiones = int(cantidad_camiones)
+        cantidad_camiones = int(cantidad_camiones) + (cantidad_camiones % 1 > 0)
         alert(title="Cantidad de camiones necesarios", message=f"La cantidad de camiones necesarios para transportar {toneladas} toneladas es {cantidad_camiones}")
     
 
@@ -63,7 +63,7 @@ class App(customtkinter.CTk):
         kilometros = int(kilometros)
         velocidad_maxima = 90
         tiempo_llegada = kilometros / velocidad_maxima
-        tiempo_llegada = int(tiempo_llegada)
+        tiempo_llegada = int(tiempo_llegada) + (tiempo_llegada % 1 > 0)
         alert(title="Tiempo de demora por cada camion", message=f"El tiempo que tarda cada camion es de {tiempo_llegada}hs")
     
 
