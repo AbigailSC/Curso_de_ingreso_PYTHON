@@ -47,29 +47,38 @@ class App(customtkinter.CTk):
         marca_producto = self.combobox_marca.get()
         cantidad_productos = self.combobox_cantidad.get()
         cantidad_productos = int(cantidad_productos)
+        descuento = 0
 
         if (cantidad_productos > 5):
             descuento = 50
-        elif (cantidad_productos > 4 and marca_producto == "ArgentinaLuz"):
+        elif (cantidad_productos == 5 and marca_producto == "ArgentinaLuz"):
             descuento = 40
-        elif(cantidad_productos > 4): 
+        elif(cantidad_productos == 5): 
             descuento = 30
-        elif(cantidad_productos > 3 and (marca_producto == "ArgentinaLuz" or "FelipeLamparas")):
+        elif(cantidad_productos == 4 and (marca_producto == "ArgentinaLuz" or marca_producto == "FelipeLamparas")):
             descuento = 25
-        elif(cantidad_productos > 3):
+        elif(cantidad_productos == 4):
             descuento = 20
-        elif(cantidad_productos > 2 and marca_producto == "ArgentinaLuz"):
+        elif(cantidad_productos == 3 and marca_producto == "ArgentinaLuz"):
             descuento = 15
-        elif(marca_producto == "FelipeLamparas"):
+        elif(cantidad_productos == 3 and marca_producto == "FelipeLamparas"):
             descuento = 10
-        elif(cantidad_productos > 2):
+        elif(cantidad_productos == 3):
             descuento = 5
 
         precio_total = precio_producto * cantidad_productos
         precio_descuento = (precio_total * descuento) / 100
         precio_descuento = int(precio_descuento)
         precio_final = precio_total - precio_descuento
+
         mensaje = f"Por la compra de {cantidad_productos} productos marca {marca_producto}, usted tiene un descuento del {descuento}%, el total de su compra en ${precio_total}, agregando el descuento de ${precio_descuento} ,el total de su compra queda en ${precio_final}."
+        
+        if (precio_final > 4000):
+            precio_final_temporal = precio_final
+            precio_descuento_adicional = (precio_final * 5) / 100
+            precio_descuento_adicional = int(precio_descuento_adicional)
+            precio_final = precio_final_temporal - precio_descuento_adicional
+            mensaje = f"Por la compra de {cantidad_productos} productos marca {marca_producto}, usted tiene un descuento del {descuento}% más un 5% porque su compra supero los $4000, el total de su compra en ${precio_total}, agregando el descuento de ${precio_descuento} ,el total de su compra queda en ${precio_final}."
         alert("Precio final de su compra", message=mensaje)
         
     
