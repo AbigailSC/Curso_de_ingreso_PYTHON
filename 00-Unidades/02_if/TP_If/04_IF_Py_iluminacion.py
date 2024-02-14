@@ -63,7 +63,7 @@ class App(customtkinter.CTk):
             descuento = 15
         elif(cantidad_productos == 3 and marca_producto == "FelipeLamparas"):
             descuento = 10
-        elif(cantidad_productos == 3):
+        else:
             descuento = 5
 
         precio_total = precio_producto * cantidad_productos

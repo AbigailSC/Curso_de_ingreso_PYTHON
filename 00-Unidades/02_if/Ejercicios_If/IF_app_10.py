@@ -33,14 +33,14 @@ class App(customtkinter.CTk):
 
 
     def btn_mostrar_on_click(self):
-        numero_random = random.randrange(0, 11)
+        nota_aleatoria = random.randrange(0, 11)
         resultado = ""
-        if (numero_random > 5):
-            resultado = f"Promoción directa, la nota es {numero_random}"
-        elif(numero_random > 3):
-            resultado = f"Aprobado, la nota es {numero_random}"
+        if (nota_aleatoria > 5):
+            resultado = f"Promoción directa, la nota es {nota_aleatoria}"
+        elif(nota_aleatoria > 3):
+            resultado = f"Aprobado, la nota es {nota_aleatoria}"
         else:
-            resultado = f"Desaprobado, la nota es {numero_random}"
+            resultado = f"Desaprobado, la nota es {nota_aleatoria}"
         alert(title="Resultado de calificación", message=resultado)
     
 
