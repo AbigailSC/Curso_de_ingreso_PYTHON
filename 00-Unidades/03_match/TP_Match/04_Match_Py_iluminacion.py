@@ -43,7 +43,50 @@ class App(customtkinter.CTk):
 
 
     def btn_calcular_on_click(self):
-        pass
+        precio_producto = 800
+        marca_producto = self.combobox_marca.get()
+        cantidad_productos = self.combobox_cantidad.get()
+        cantidad_productos = int(cantidad_productos)
+        descuento = 0
+
+        match cantidad_productos:
+            case 3:
+                match marca_producto:
+                    case "ArgentinaLuz":
+                        descuento = 0.15
+                    case "FelipeLamparas":
+                        descuento = 0.10
+                    case _:
+                        descuento = 0.05
+            case 4:
+                match marca_producto:
+                    case "ArgentinaLuz" | "FelipeLamparas":
+                        descuento = 0.25
+                    case _:
+                        descuento = 0.2
+            case 5:
+                match marca_producto:
+                    case "ArgentinaLuz":
+                        descuento = 0.4
+                    case _:
+                        descuento = 0.3
+            case _:
+                descuento = 0.5
+
+        precio_total = precio_producto * cantidad_productos
+        precio_descuento = precio_total * descuento
+        precio_descuento = int(precio_descuento)
+        precio_final = precio_total - precio_descuento
+        mensaje = f"Por la compra de {cantidad_productos} productos marca {marca_producto}, usted tiene un descuento del {descuento}%, el total de su compra en ${precio_total}, agregando el descuento de ${precio_descuento} ,el total de su compra queda en ${precio_final}."
+        
+        if (precio_final > 4000):
+            precio_final_temporal = precio_final
+            precio_descuento_adicional = (precio_final * 5) / 100
+            precio_descuento_adicional = int(precio_descuento_adicional)
+            precio_final = precio_final_temporal - precio_descuento_adicional
+            mensaje = f"Por la compra de {cantidad_productos} productos marca {marca_producto}, usted tiene un descuento del {descuento}% más un 5% porque su compra supero los $4000, el total de su compra en ${precio_total}, agregando el descuento de ${precio_descuento} ,el total de su compra queda en ${precio_final}."
+        
+        alert("Precio final de su compra", message=mensaje)
         
     
 if __name__ == "__main__":
