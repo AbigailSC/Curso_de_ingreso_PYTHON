@@ -70,7 +70,8 @@ class App(customtkinter.CTk):
         precio_descuento = (precio_total * descuento) / 100
         precio_descuento = int(precio_descuento)
         precio_final = precio_total - precio_descuento
-
+        mensaje = f"Por la compra de {cantidad_productos} productos marca {marca_producto}, usted tiene un descuento del {descuento}%, el total de su compra en ${precio_total}, agregando el descuento de ${precio_descuento} ,el total de su compra queda en ${precio_final}."
+        
         if (precio_final > 4000):
             precio_final_temporal = precio_final
             precio_descuento_adicional = (precio_final * 5) / 100
@@ -78,7 +79,6 @@ class App(customtkinter.CTk):
             precio_final = precio_final_temporal - precio_descuento_adicional
             mensaje = f"Por la compra de {cantidad_productos} productos marca {marca_producto}, usted tiene un descuento del {descuento}% más un 5% porque su compra supero los $4000, el total de su compra en ${precio_total}, agregando el descuento de ${precio_descuento} ,el total de su compra queda en ${precio_final}."
         
-        mensaje = f"Por la compra de {cantidad_productos} productos marca {marca_producto}, usted tiene un descuento del {descuento}%, el total de su compra en ${precio_total}, agregando el descuento de ${precio_descuento} ,el total de su compra queda en ${precio_final}."
         alert("Precio final de su compra", message=mensaje)
         
     

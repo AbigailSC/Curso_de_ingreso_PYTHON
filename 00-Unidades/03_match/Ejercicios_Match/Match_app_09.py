@@ -57,8 +57,36 @@ class App(customtkinter.CTk):
         
     
     def btn_informar_on_click(self):
-        pass
+        precio_base_estadia = 15000
+        estacion_seleccionada = self.combobox_estaciones.get()
+        destino_seleccionado = self.combobox_destino.get()
+        match estacion_seleccionada:
+            case "Invierno":
+                match destino_seleccionado:
+                    case "Bariloche":
+                        ajuste_porcentaje = 1.20
+                    case "Mar del plata":
+                        ajuste_porcentaje = 0.80
+                    case _:
+                        ajuste_porcentaje =  0.90
+            case "Verano":
+                match destino_seleccionado:
+                    case "Bariloche":
+                        ajuste_porcentaje = 0.80
+                    case "Mar del plata":
+                        ajuste_porcentaje =  1.20
+                    case _:
+                        ajuste_porcentaje = 1.10
+            case "Primavera" | "Otoño":
+                match destino_seleccionado:
+                    case "Cordoba":
+                        ajuste_porcentaje = 1
+                    case _:
+                        ajuste_porcentaje = 1.10
             
+        precio_total = precio_base_estadia * ajuste_porcentaje
+        precio_total = int(precio_total)
+        alert(title="Precio total", message=f"El precio total de la estadía en {destino_seleccionado} en la estación {estacion_seleccionada} es de ${precio_total}")
     
 if __name__ == "__main__":
     app = App()
