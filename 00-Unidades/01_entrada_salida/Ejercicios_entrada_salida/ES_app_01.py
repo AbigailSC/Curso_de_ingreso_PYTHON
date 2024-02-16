@@ -12,14 +12,25 @@ Ejercicio: entrada_salida_01
 ---
 Enunciado:
 
-para saber el costo de un viaje necesitamos el siguiente algoritmo,
-sabiendo que el precio por kilo de pasajero es 1000 pesos
-Se ingresan todos los datos por PROMPT
-los datos a solicitar de dos personas son,
-nombre, edad y peso
-se pide  armar el siguiente mensaje
-"hola jose y maria , sus pesos son 80 kilos y 60 kilos respectivamente
-, sumados da 140 kilos , el promedio de edad es 33 y su viaje vale 140 000 pesos  "
+La empresa spaceX , nos contrata para poder hacer el cálculo de precio final y descuentos para un viaje al espacio exterior
+el costo por millón de kilómetros es de 8 bitcoin 
+
+podes viajar a Marte (60 millones de KM) , la Luna (½ millón de KM)y a Titan (1300 millones de KM)
+podes elegir si viajar en verano, primavera  otoño o invierno.
+
+para los viajes a Marte
+Si viajan más de 5 personas te hacemos un 50 % de descuento sobre el precio,
+viajando en verano al precio con descuento se le suma un 10% , en otoño y primavera se le suma un 25% al precio con descuento.
+
+para los viajes la Luna 
+si viajan más de 5 personas te hacemos un 40 % de descuento sobre el precio,
+viajando en verano al precio con descuento se le suma un 15% ,  en otoño y primavera al precio con descuento se le suma un 25%
+
+para los viajes a Titan
+si viajan más de 5 personas te hacemos un 30 % de descuento sobre el precio,
+viajando en verano al precio final se le suma un 10% , en otoño y primavera al precio con descuento se le suma un 20%
+
+
 '''
 
 
@@ -35,29 +46,70 @@ class App(customtkinter.CTk):
         self.btn_mostrar.grid(row=2, pady=20, columnspan=2, sticky="nsew")
 
     def btn_mostrar_on_click(self):
-        precio_kilo = 1000
-        nombre = prompt(title="Ingrese el nombre", prompt="Ingrese su primer nombre")
-        edad = prompt(title="Ingrese la edad", prompt="Ingrese la primer edad")
-        edad = int(edad)
-        peso = prompt(title="Ingrese el peso", prompt="Ingrese el primer peso")
-        peso = float(peso)
+        costo_millon_kilometro = 8
+        destino_seleccionado = prompt(title="Seleccionar destino", prompt="Seleccione el destino a donde quiere ir")
+        estacion_seleccionada = prompt(title="Seleccionar estación", prompt="Seleccione la estación del año en que quiere ir")
+        cantidad_personas = prompt(title="Seleccionar cantidad personas", prompt="Seleccione la cantidad de personas que van a viajar")
+        cantidad_personas = int(cantidad_personas)
+        mensaje_respuesta = ""
 
-        segundo_nombre = prompt(title="Ingrese el nombre", prompt="Ingrese su segundo nombre")
-        segunda_edad = prompt(title="Ingrese la edad", prompt="Ingrese la segunda edad")
-        segunda_edad = int(segunda_edad)
-        segundo_peso = prompt(title="Ingrese el peso", prompt="Ingrese el segundo peso")
-        segundo_peso = float(segundo_peso)
+        destino_kilometros = 0
+        porcentaje_descuento = 0
+        porcentaje_aumento_adicional = 0
+        
+        match destino_seleccionado:
+            case "Marte":
+                destino_kilometros = 60000000
+                if cantidad_personas > 5:
+                    porcentaje_descuento = 50
+                match estacion_seleccionada:
+                    case "Verano":
+                        porcentaje_aumento_adicional = 10
+                    case "Otoño" | "Primavera":
+                        porcentaje_aumento_adicional = 25
+            case "Luna":
+                destino_kilometros = 500000
+                if cantidad_personas > 5:
+                    porcentaje_descuento = 40
+                match estacion_seleccionada:
+                    case "Verano":
+                        porcentaje_aumento_adicional = 15
+                    case "Otoño" | "Primavera":
+                        porcentaje_aumento_adicional = 25
+            case "Titan":
+                destino_kilometros = 1300000000
+                if cantidad_personas > 5:
+                    porcentaje_descuento = 30
+                match estacion_seleccionada:
+                    case "Verano":
+                        porcentaje_aumento_adicional = 10
+                    case "Otoño" | "Primavera":
+                        porcentaje_aumento_adicional = 20
 
-        peso_conjunto = peso + segundo_peso
+        precio_viaje = costo_millon_kilometro * destino_kilometros
+        precio_descuento_personas = (precio_viaje * porcentaje_descuento) / 100
+        precio_descuento_personas = int(precio_descuento_personas)
+        precio_parcial = precio_viaje - precio_descuento_personas
+        precio_parcial_aumento = (precio_parcial * porcentaje_aumento_adicional) / 100
+        precio_parcial_aumento = int(precio_parcial_aumento)
+        precio_final = precio_parcial + precio_parcial_aumento
+        precio_final = int(precio_final)
 
-        edad_promedio = (edad + segunda_edad) / 2
-        edad_promedio = int(edad_promedio)
+        mensaje_precio_viaje = f"Su viaje a {destino_seleccionado} tiene un valor de {precio_viaje} bitcoins."
+        mensaje_descuento_personas = f"Además de que se le aplica un descuento del {porcentaje_descuento}% porque viajan más de 5 personas, quedando el precio del viaje en {precio_parcial} bitcoins."
+        mensaje_precio_parcial = f"Y por ultimo se le agrega un aumento del {porcentaje_aumento_adicional}% por viajar en {estacion_seleccionada}."
 
-        costo_viaje = peso_conjunto
-        costo_viaje = int(costo_viaje)
-        costo_viaje = (costo_viaje * precio_kilo)
-        alert(title="Resultado", message=f"Hola {nombre} y {segundo_nombre} , sus pesos son {peso} kilos y {segundo_peso} kilos respectivamente, sumados da {peso_conjunto} kilos , el promedio de edad es {edad_promedio} y su viaje vale {costo_viaje} pesos")
-    
+        mensaje_respuesta = mensaje_precio_viaje
+
+        if cantidad_personas > 5:
+            mensaje_respuesta = f"{mensaje_respuesta} {mensaje_descuento_personas}"
+
+        if porcentaje_aumento_adicional > 0:
+            mensaje_respuesta = f"{mensaje_respuesta} {mensaje_precio_parcial}"
+
+        mensaje_respuesta = f"{mensaje_respuesta}\nEl precio final es de {precio_final} bitcoins."
+
+        alert(title="Calculadora de costo de viaje", message=mensaje_respuesta)
 
 
 if __name__ == "__main__":

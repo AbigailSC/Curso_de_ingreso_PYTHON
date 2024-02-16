@@ -11,12 +11,25 @@ apellido: Sarzuri
 TP: IF_Iluminacion
 ---
 Enunciado:
-Todas las lámparas están  al mismo precio de $800 pesos final.
-		A.	Si compra 6 o más  lamparitas bajo consumo tiene un descuento del 50%. 
-		B.	Si compra 5  lamparitas bajo consumo marca "ArgentinaLuz" se hace un descuento del 40 % y si es de otra marca el descuento es del 30%.
-		C.	Si compra 4  lamparitas bajo consumo marca "ArgentinaLuz" o “FelipeLamparas” se hace un descuento del 25 % y si es de otra marca el descuento es del 20%.
-		D.	Si compra 3  lamparitas bajo consumo marca "ArgentinaLuz"  el descuento es del 15%, si es  “FelipeLamparas” se hace un descuento del 10 % y si es de otra marca un 5%.
-		E.	Si el importe final con descuento suma más de $4000  se obtien un descuento adicional de 5%.
+La empresa spaceX , nos contrata para poder hacer el cálculo de precio final y descuentos para un viaje al espacio exterior
+el costo por millón de kilómetros es de 8 bitcoin 
+
+podes viajar a Marte (60 millones de KM) , la Luna (½ millón de KM)y a Titan (1300 millones de KM)
+podes elegir si viajar en verano, primavera  otoño o invierno.
+
+para los viajes a Marte
+Si viajan más de 5 personas te hacemos un 50 % de descuento sobre el precio,
+viajando en verano al precio con descuento se le suma un 10% , en otoño y primavera se le suma un 25% al precio con descuento.
+
+para los viajes la Luna 
+si viajan más de 5 personas te hacemos un 40 % de descuento sobre el precio,
+viajando en verano al precio con descuento se le suma un 15% ,  en otoño y primavera al precio con descuento se le suma un 25%
+
+para los viajes a Titan
+si viajan más de 5 personas te hacemos un 30 % de descuento sobre el precio,
+viajando en verano al precio final se le suma un 10% , en otoño y primavera al precio con descuento se le suma un 20%
+
+
 '''
 
 class App(customtkinter.CTk):
@@ -29,8 +42,8 @@ class App(customtkinter.CTk):
         self.label1 = customtkinter.CTkLabel(master=self, text="Marca")
         self.label1.grid(row=0, column=0, padx=10, pady=10)
         
-        self.combobox_marca = customtkinter.CTkComboBox(master=self, values=["ArgentinaLuz", "FelipeLamparas","JeLuz","HazIluminacion","Osram"])
-        self.combobox_marca.grid(row=0, column=1, padx=10, pady=10)
+        self.combobox_destino = customtkinter.CTkComboBox(master=self, values=["ArgentinaLuz", "FelipeLamparas","JeLuz","HazIluminacion","Osram"])
+        self.combobox_destino.grid(row=0, column=1, padx=10, pady=10)
 
         self.label2 = customtkinter.CTkLabel(master=self, text="Cantidad")
         self.label2.grid(row=1, column=0, padx=10, pady=10)
@@ -43,44 +56,9 @@ class App(customtkinter.CTk):
 
 
     def btn_calcular_on_click(self):
-        precio_producto = 800
-        marca_producto = self.combobox_marca.get()
-        cantidad_productos = self.combobox_cantidad.get()
-        cantidad_productos = int(cantidad_productos)
-        descuento = 0
-
-        if (cantidad_productos > 5):
-            descuento = 50
-        elif (cantidad_productos == 5 and marca_producto == "ArgentinaLuz"):
-            descuento = 40
-        elif(cantidad_productos == 5): 
-            descuento = 30
-        elif(cantidad_productos == 4 and (marca_producto == "ArgentinaLuz" or marca_producto == "FelipeLamparas")):
-            descuento = 25
-        elif(cantidad_productos == 4):
-            descuento = 20
-        elif(cantidad_productos == 3 and marca_producto == "ArgentinaLuz"):
-            descuento = 15
-        elif(cantidad_productos == 3 and marca_producto == "FelipeLamparas"):
-            descuento = 10
-        else:
-            descuento = 5
-
-        precio_total = precio_producto * cantidad_productos
-        precio_descuento = (precio_total * descuento) / 100
-        precio_descuento = int(precio_descuento)
-        precio_final = precio_total - precio_descuento
-        mensaje = f"Por la compra de {cantidad_productos} productos marca {marca_producto}, usted tiene un descuento del {descuento}%, el total de su compra en ${precio_total}, agregando el descuento de ${precio_descuento} ,el total de su compra queda en ${precio_final}."
-        
-        if (precio_final > 4000):
-            precio_final_temporal = precio_final
-            precio_descuento_adicional = (precio_final * 5) / 100
-            precio_descuento_adicional = int(precio_descuento_adicional)
-            precio_final = precio_final_temporal - precio_descuento_adicional
-            mensaje = f"Por la compra de {cantidad_productos} productos marca {marca_producto}, usted tiene un descuento del {descuento}% más un 5% porque su compra supero los $4000, el total de su compra en ${precio_total}, agregando el descuento de ${precio_descuento} ,el total de su compra queda en ${precio_final}."
-        
-        alert("Precio final de su compra", message=mensaje)
-        
+        costo_kilometro = 8
+        destino_seleccionado = prompt(title="Seleccionar destino", prompt="Seleccione el destino a donde quiere ir")
+        estacion_seleccionada = prompt(title="Seleccionar estación", prompt="Seleccione la estación del año en que quiere ir")
     
 if __name__ == "__main__":
     app = App()
